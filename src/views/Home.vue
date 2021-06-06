@@ -1,8 +1,8 @@
 <template>
     <div class="home">
-
+        <ProductDescriptionDrawer :product="product" :active="active.drawer_view" v-on:close-product-drawer="closeProductDrawer"></ProductDescriptionDrawer>
         <div class="product-cards-container">
-            <ProductSummaryCart v-for="product in items" v-bind:key="product.id" :product="product" v-on:view-product="viewProduct($event)" />
+            <ProductSummaryCart v-for="product in items" v-bind:key="product.id" :product="product" v-on:view-product="viewProduct(product)" />
         </div>
 
     </div>
@@ -12,21 +12,34 @@
 // @ is an alias to /src
 import items from '../data/items.js';
 import ProductSummaryCart from '../components/products/ProductSummaryCard.vue';
+import ProductDescriptionDrawer from '../components/products/ProductDescriptionDrawer'
 
 export default {
     name: 'Home',
     components: {
-        ProductSummaryCart
+        ProductSummaryCart,
+        ProductDescriptionDrawer
     },
     data() {
         return {
-            items: items
+            items: items,
+            product: null,
+            active: {
+                drawer_view: false
+            }
         }
     },
     methods: {
-        viewProduct($event)
+        viewProduct(product)
         {
-            console.log($event);
+            console.log(product);
+            this.active.drawer_view = true;
+            this.product = product;
+        },
+        closeProductDrawer()
+        {
+            this.active.drawer_view = false;
+            this.product = null;
         }
     }
 }
