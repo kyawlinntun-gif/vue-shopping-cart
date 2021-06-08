@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <ProductDescriptionDrawer :product="product" :active="active.drawer_view" v-on:close-product-drawer="closeProductDrawer"></ProductDescriptionDrawer>
+        <ProductDescriptionDrawer :product="product" :active="active.drawer_view" v-on:close-product-drawer="closeProductDrawer" v-if="active.drawer_view"></ProductDescriptionDrawer>
         <div class="product-cards-container">
             <ProductSummaryCart v-for="product in items" v-bind:key="product.id" :product="product" v-on:view-product="viewProduct(product)" />
         </div>
