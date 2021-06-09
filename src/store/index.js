@@ -17,6 +17,14 @@ export default createStore({
             } else {
                 return null;
             }
+        },
+        getCartItems: state => {
+            return state.cart;
+        },
+        cartTotal: state => {
+            return state.cart.reduce(function(a, b) {
+                return a + (b.quantity * b.price)
+            }, 0);
         }
     },
     mutations: {
@@ -46,6 +54,13 @@ export default createStore({
                 }
             }
             updateLocalStorage(state.cart);
+        },
+        updateCartItemsFromLocalStorage(state)
+        {
+            let cart = localStorage.getItem('cart');
+            if(cart) {
+                state.cart = JSON.parse(cart);
+            }
         }
     },
     actions: {
